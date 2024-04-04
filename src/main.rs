@@ -1,5 +1,8 @@
-use std::{error::Error, io, process};
+use std::{error::Error, io};
 // use serde::Deserialize;
+
+use fixed::types::I8F24;
+type Fixed = I8F24;
 
 /// For rocketpool there are additional columns but the initial colums are all the same.
 const SHARED_COLUMN_NAMES: [&'static str; 5] = [
@@ -28,16 +31,16 @@ struct Row {
     // TODO:(bn) fixed point numbers
     // TODO:(bn) strong types?
     #[serde(rename = "Consensus Layer Income [ETH]")]
-    consensus_income_eth: Option<f64>,
+    consensus_income_eth: Option<Fixed>,
 
     #[serde(rename = "Execution Layer Income [ETH]")]
-    execution_income_eth: Option<f64>,
+    execution_income_eth: Option<Fixed>,
 
     #[serde(rename = "Smoothing Pool Income [ETH]")]
-    smothing_pool_income_eth: Option<f64>,
+    smothing_pool_income_eth: Option<Fixed>,
 
     #[serde(rename = "Rocket Pool Node Income [RPL]")]
-    node_income_rpl: Option<f64>,
+    node_income_rpl: Option<Fixed>,
 }
 
 fn example() -> Result<(), Box<dyn Error>> {
